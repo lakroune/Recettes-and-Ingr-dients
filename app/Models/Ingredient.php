@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Ingredient extends Model
 {
     protected $table = 'ingredients';
-    public function recettes()
+
+    public function recette()
     {
-        return $this->belongsToMany(Recette::class);
+        return $this->belongsTo(Recette::class);
     }
 }

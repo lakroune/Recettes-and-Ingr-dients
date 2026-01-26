@@ -30,9 +30,9 @@ class Recette extends Model
         return $this->hasMany(Etape::class);
     }
 
-    public function user()
+    public function visiteur()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Visiteur::class);
     }
     public function ingredients()
     {

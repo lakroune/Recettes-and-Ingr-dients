@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     protected $table = 'images';
-    public function recettes()
+    public function recette()
     {
-        return $this->belongsToMany(Recette::class);
+        return $this->belongsTo(Recette::class);
     }
 }
