@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
-            $table->integer('recette_id');
-            $table->integer('ingredient');
-            $table->integer('quantite');
-            $table->integer('unite');
+            $table->foreignId('recette_id');
+            $table->string('nom_ingredient');
+            $table->float('quantite');
+            $table->string('unite');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+       Schema::dropIfExists('ingredients');
     }
 };

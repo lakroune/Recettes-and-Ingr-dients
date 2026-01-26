@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('favoris', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('recette_id');
+            $table->foreignId('user_id');
+            $table->foreignId('recette_id');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('favoris');
     }
 };

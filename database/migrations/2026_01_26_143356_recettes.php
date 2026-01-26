@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('recettes', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('categorie_id');
-            $table->integer('title_recette');
-            $table->integer('description_recette');
+            $table->foreignId('user_id');
+            $table->foreignId('categorie_id');
+            $table->string('title_recette');
+            $table->text('description_recette');
             $table->boolean('is_recipe_of_day')->default(false);
             $table->boolean('is_deleted')->default(false);
             $table->timestamps();
@@ -28,6 +28,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('images');
+        Schema::dropIfExists('favoris');
+        Schema::dropIfExists('etapes');
+        Schema::dropIfExists('ingredients');
+        Schema::dropIfExists('commentaires');
+        Schema::dropIfExists('recettes');
     }
 };

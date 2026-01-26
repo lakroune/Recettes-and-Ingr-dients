@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('etapes', function (Blueprint $table) {
             $table->id();
-            $table->integer('recette_id');
+            $table->foreignId('recette_id');
             $table->integer('order_etape');
-            $table->integer('description_etape');
+            $table->text('description_etape');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+       Schema::dropIfExists('etapes');
     }
 };

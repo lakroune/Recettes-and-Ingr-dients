@@ -13,8 +13,8 @@ class Commentaire extends Model
         return $this->belongsTo(Recette::class);
     }
 
-    public function visiteur()
+    public function user()
     {
-        return $this->belongsTo(Visiteur::class);
+        return $this->belongsTo(User::class);
     }
 }

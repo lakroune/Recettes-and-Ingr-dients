@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->integer('recette_id');
-            $table->integer('url_image');
+            $table->foreignId('recette_id');
+            $table->string('url_image');
             $table->timestamps();
         });
     }

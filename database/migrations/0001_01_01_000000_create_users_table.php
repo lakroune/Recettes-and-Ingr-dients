@@ -13,12 +13,12 @@
         {
             Schema::create('users', function (Blueprint $table) {
                 $table->id();
-                $table->string('name');
+                $table->string('nom');
+                $table->string('prenom');
                 $table->string('email')->unique();
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password');
-                $table->string('role');
-                $table->string('phone')->nullable();
+                $table->enum('role_user', ['admin', 'visitor'])->default('visitor');
                 $table->rememberToken();
                 $table->timestamps();
             });
