@@ -18,13 +18,7 @@
 </head>
 <body class="text-[#1a1a1a]">
 
-    <nav class="h-20 flex items-center justify-between px-10 border-b border-gray-50 bg-white sticky top-0 z-50">
-        <a href="#" class="text-sm font-black tracking-tighter uppercase">Foodie<span class="text-orange-600">.</span>Share</a>
-        <div class="flex items-center gap-10">
-            <span class="text-[10px] font-bold uppercase tracking-widest text-orange-600">Espace Créateur</span>
-            <div class="h-10 w-10 bg-black rounded-full flex items-center justify-center text-white text-xs font-bold">Z</div>
-        </div>
-    </nav>
+   <x-header />
 
     <main class="max-w-6xl mx-auto px-8 py-20">
         

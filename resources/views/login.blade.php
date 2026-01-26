@@ -82,7 +82,8 @@
                             class="input-flat py-3 text-sm font-medium">
                     </div>
                     @if ($errors->any())
-                        <p style="color:red;">{{ $errors->first() }}</p>
+                        <p class="text-[9px] font-bold uppercase text-orange-600 hover:underline">{{ $errors->first() }}
+                        </p>
                     @endif
                     <div class="pt-4">
                         <button type="submit" class="btn-black w-full">

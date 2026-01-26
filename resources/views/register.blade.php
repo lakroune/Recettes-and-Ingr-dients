@@ -71,19 +71,22 @@
                         <div class="flex flex-col">
                             <label
                                 class="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Prénom</label>
-                            <input name="prenom" type="text" placeholder="mouad" class="input-flat py-3 text-sm italic">
+                            <input name="prenom" type="text" placeholder="mouad"
+                                class="input-flat py-3 text-sm italic">
                         </div>
                         <div class="flex flex-col">
                             <label
                                 class="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Nom</label>
-                            <input name="nom" type="text" placeholder="hassan" class="input-flat py-3 text-sm italic">
+                            <input name="nom" type="text" placeholder="hassan"
+                                class="input-flat py-3 text-sm italic">
                         </div>
                     </div>
 
                     <div class="flex flex-col">
                         <label class="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Email
                             Professionnel</label>
-                        <input name="email" type="email" placeholder="chef@foodieshare.com" class="input-flat py-3 text-sm">
+                        <input name="email" type="email" placeholder="chef@foodieshare.com"
+                            class="input-flat py-3 text-sm">
                     </div>
 
                     <div class="flex flex-col">
@@ -98,7 +101,8 @@
                             conditions</label>
                     </div>
                     @if ($errors->any())
-                        <p style="color:red;">{{ $errors->first() }}</p>
+                        <p class="text-[9px] font-bold uppercase text-orange-600 hover:underline">{{ $errors->first() }}
+                        </p>
                     @endif
                     <div class="pt-4">
                         <button type="submit" class="btn-black w-full">

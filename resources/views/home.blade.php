@@ -69,32 +69,7 @@
 
 <body class="bg-[#fafafa] text-[#1a1a1a]">
 
-    <nav class="sticky top-0 z-50 glass border-b border-gray-100">
-        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="/">
-                <div class="text-sm font-black tracking-tighter uppercase">Foodie<span
-                        class="text-orange-600">.</span>Share</div>
-            </a>
-            <div
-                class="hidden md:flex items-center gap-8 text-[11px] font-bold uppercase tracking-widest text-gray-500">
-                {{-- <a href="#" class="text-black border-b-2 border-black pb-1">Accueil</a>
-                <a href="#" class="hover:text-black transition">Découvrir</a>
-                <a href="#" class="hover:text-black transition">Communauté</a> --}}
-            </div>
-
-            <div class="flex items-center gap-5">
-                <a href="/login" class="flex items-center gap-2 group">
-                    <span
-                        class="text-[10px] font-bold uppercase tracking-widest hidden sm:block group-hover:text-orange-600 transition"></span>
-                    <div
-                        class="h-9 w-9 rounded-full bg-black text-white flex items-center justify-center text-xs cursor-pointer btn-animate hover:bg-orange-600">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </nav>
-
+    <x-header />
     <main class="max-w-6xl mx-auto px-6">
 
         <section class="py-12 animate-in">
@@ -107,6 +82,8 @@
                     <p class="text-gray-500 text-xs leading-relaxed max-w-xs">Une simplicité audacieuse. Citrons de
                         Sicile, beurre frais et parmesan affiné.</p>
                     <div class="flex gap-4 pt-2">
+
+
                         <button onclick="window.location.href='/recette'"
                             class="bg-black text-white text-[10px] font-bold uppercase tracking-wider px-6 py-3  btn-animate hover:bg-orange-600 ">Découvrir</button>
                     </div>
