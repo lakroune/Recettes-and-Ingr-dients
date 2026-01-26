@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c514d8f7b9fc5970bdd94287905ef584",
+    "content-hash": "079c90a0954e510d5156132bde23ab00",
     "packages": [
         {
             "name": "brick/math",
@@ -2018,6 +2018,67 @@
                 }
             ],
             "time": "2026-01-15T06:54:53+00:00"
+        },
+        {
+            "name": "matte97p/laravel-postgresql-inherit",
+            "version": "2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/matte97p/laravel-postgresql-inherit.git",
+                "reference": "7a8540ff59bb3b16f499c131b9f92968b8db34c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/matte97p/laravel-postgresql-inherit/zipball/7a8540ff59bb3b16f499c131b9f92968b8db34c9",
+                "reference": "7a8540ff59bb3b16f499c131b9f92968b8db34c9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": ">=10.0",
+                "illuminate/support": ">=10.0",
+                "php": ">=8.0.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RishiRamawat\\PostgresSchema\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thibaud Dauce",
+                    "email": "thibaud@dauce.fr"
+                },
+                {
+                    "name": "Pasechnik Vlad",
+                    "email": "jump.e.r@yandex.ru"
+                },
+                {
+                    "name": "Rishi Ramawat",
+                    "email": "rishi.ramawat@gmail.com"
+                }
+            ],
+            "description": "Add inheritance in postgresql tables",
+            "keywords": [
+                "database",
+                "inheritance",
+                "laravel",
+                "migrations",
+                "postgres",
+                "postresql"
+            ],
+            "support": {
+                "source": "https://github.com/matte97p/laravel-postgresql-inherit/tree/2.7"
+            },
+            "time": "2023-04-24T13:37:19+00:00"
         },
         {
             "name": "monolog/monolog",
