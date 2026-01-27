@@ -115,14 +115,15 @@
                     <div id="ingredientsList" class="space-y-6 mb-6">
                         <div class="flex items-end gap-4">
                             <div class="flex-1">
-                                <input type="text" placeholder="Ingrédient" class="input-flat w-full py-2 text-sm">
+                                <input name="nom_ingredient" type="text" placeholder="Ingrédient"
+                                    class="input-flat w-full py-2 text-sm">
                             </div>
                             <div class="w-20">
-                                <input type="number" placeholder="Qté"
+                                <input name="quantite" type="number" placeholder="Qté"
                                     class="input-flat w-full py-2 text-sm font-bold">
                             </div>
                             <div class="w-24">
-                                <select
+                                <select name="unite"
                                     class="input-flat w-full py-2 text-[10px] font-bold uppercase tracking-widest bg-transparent">
                                     <option value="g">g</option>
                                     <option value="kg">kg</option>
@@ -146,7 +147,8 @@
                     <div id="stepsList" class="space-y-10">
                         <div class="flex gap-6 items-start">
                             <span class="text-3xl font-black text-gray-200 tracking-tighter">01</span>
-                            <textarea placeholder="Décrivez cette étape..." class="input-flat flex-1 py-1 text-sm resize-none" rows="2"></textarea>
+                            <textarea name="description_etape" placeholder="Décrivez cette étape..."
+                                class="input-flat flex-1 py-1 text-sm resize-none" rows="2"></textarea>
                         </div>
                     </div>
                     <button type="button" onclick="addStep()"
@@ -167,8 +169,8 @@
                             Principale (Portrait)</label>
                         <div
                             class="relative group aspect-[3/4] bg-gray-50 border-2 border-dashed border-gray-200 flex items-center justify-center overflow-hidden">
-                            <input type="file" class="absolute inset-0 opacity-0 cursor-pointer z-10"
-                                onchange="previewMain(this)">
+                            <input name="imagePrincipale" type="file"
+                                class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="previewMain(this)">
                             <div id="mainPlaceholder" class="text-center">
                                 <i class="fa-solid fa-image text-3xl text-gray-200 mb-2"></i>
                                 <p class="text-[9px] font-bold text-gray-400 uppercase">Image de couverture</p>
@@ -193,28 +195,32 @@
 
                             <div
                                 class="secondary-slot aspect-square bg-gray-50 border border-dashed border-gray-200 flex items-center justify-center overflow-hidden relative">
-                                <input type="file" class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                                <input name="images[]" type="file"
+                                    class="absolute inset-0 opacity-0 cursor-pointer z-10"
                                     onchange="previewSecondary(this)">
                                 <i class="fa-solid fa-plus text-gray-200"></i>
                                 <img class="absolute inset-0 w-full h-full object-cover hidden">
                             </div>
                             <div
                                 class="secondary-slot aspect-square bg-gray-50 border border-dashed border-gray-200 flex items-center justify-center overflow-hidden relative">
-                                <input type="file" class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                                <input name="images[]" type="file"
+                                    class="absolute inset-0 opacity-0 cursor-pointer z-10"
                                     onchange="previewSecondary(this)">
                                 <i class="fa-solid fa-plus text-gray-200"></i>
                                 <img class="absolute inset-0 w-full h-full object-cover hidden">
                             </div>
                             <div
                                 class="secondary-slot aspect-square bg-gray-50 border border-dashed border-gray-200 flex items-center justify-center overflow-hidden relative">
-                                <input type="file" class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                                <input name="images[]" type="file"
+                                    class="absolute inset-0 opacity-0 cursor-pointer z-10"
                                     onchange="previewSecondary(this)">
                                 <i class="fa-solid fa-plus text-gray-200"></i>
                                 <img class="absolute inset-0 w-full h-full object-cover hidden">
                             </div>
                             <div
                                 class="secondary-slot aspect-square bg-gray-50 border border-dashed border-gray-200 flex items-center justify-center overflow-hidden relative">
-                                <input type="file" class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                                <input name="images[]" type="file"
+                                    class="absolute inset-0 opacity-0 cursor-pointer z-10"
                                     onchange="previewSecondary(this)">
                                 <i class="fa-solid fa-plus text-gray-200"></i>
                                 <img class="absolute inset-0 w-full h-full object-cover hidden">
