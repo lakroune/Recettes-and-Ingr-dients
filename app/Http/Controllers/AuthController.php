@@ -11,11 +11,11 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $les_inflos = $request->validate([
+        $les_infologin = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
-        if (Auth::attempt($les_inflos)) {
+        if (Auth::attempt($les_infologin)) {
             $request->session()->regenerate();
             return redirect()->intended('/');
         }

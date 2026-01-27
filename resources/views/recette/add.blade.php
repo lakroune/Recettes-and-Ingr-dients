@@ -67,7 +67,8 @@
             </h1>
         </header>
 
-        <form action="{{ route('recette.add') }}" method="POST" class="grid grid-cols-1 lg:grid-cols-12 gap-20">
+        <form action="{{ route('recette.add') }}" method="POST" enctype="multipart/form-data"
+            class="grid grid-cols-1 lg:grid-cols-12 gap-20">
             @csrf
             <div class="lg:col-span-7 space-y-16">
 
@@ -115,15 +116,15 @@
                     <div id="ingredientsList" class="space-y-6 mb-6">
                         <div class="flex items-end gap-4">
                             <div class="flex-1">
-                                <input name="nom_ingredient" type="text" placeholder="Ingrédient"
-                                    class="input-flat w-full py-2 text-sm">
+                                <input name="ingredients[0][nom_ingredient]" id="nom_ingredient" type="text"
+                                    placeholder="Ingrédient" class="input-flat w-full py-2 text-sm">
                             </div>
                             <div class="w-20">
-                                <input name="quantite" type="number" placeholder="Qté"
+                                <input name="ingredients[0][quantite]" type="number" placeholder="Qté"
                                     class="input-flat w-full py-2 text-sm font-bold">
                             </div>
                             <div class="w-24">
-                                <select name="unite"
+                                <select name="ingredients[0][unite]"
                                     class="input-flat w-full py-2 text-[10px] font-bold uppercase tracking-widest bg-transparent">
                                     <option value="g">g</option>
                                     <option value="kg">kg</option>
@@ -186,7 +187,8 @@
                             <template id="secondaryTemplate">
                                 <div
                                     class="relative aspect-square bg-gray-50 border border-dashed border-gray-200 flex items-center justify-center overflow-hidden">
-                                    <input type="file" class="absolute inset-0 opacity-0 cursor-pointer z-10"
+                                    <input name="images[]" type="file"
+                                        class="absolute inset-0 opacity-0 cursor-pointer z-10"
                                         onchange="previewSecondary(this)">
                                     <i class="fa-solid fa-plus text-gray-200"></i>
                                     <img class="absolute inset-0 w-full h-full object-cover hidden">
@@ -240,10 +242,10 @@
             const div = document.createElement('div');
             div.className = "flex items-end gap-4";
             div.innerHTML = `
-                <div class="flex-1"><input type="text" placeholder="Ingrédient" class="input-flat w-full py-2 text-sm"></div>
-                <div class="w-20"><input type="number" placeholder="Qté" class="input-flat w-full py-2 text-sm font-bold"></div>
+                <div class="flex-1"><input name="ingredients[${container.children.length}][nom_ingredient]" type="text" placeholder="Ingrédient" class="input-flat w-full py-2 text-sm"></div>
+                <div class="w-20"><input name="ingredients[${container.children.length}][quantite]" type="number" placeholder="Qté" class="input-flat w-full py-2 text-sm font-bold"></div>
                 <div class="w-24">
-                    <select class="input-flat w-full py-2 text-[10px] font-bold uppercase tracking-widest bg-transparent">
+                    <select name="ingredients[${container.children.length}][unite]" class="input-flat w-full py-2 text-[10px] font-bold uppercase tracking-widest bg-transparent">
                         <option value="g">g</option><option value="kg">kg</option><option value="ml">ml</option><option value="l">l</option><option value="pcs">Pcs</option>
                     </select>
                 </div>

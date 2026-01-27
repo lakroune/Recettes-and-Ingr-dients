@@ -16,9 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('categorie_id');
             $table->string('title_recette');
-            $table->text('description_recette');
             $table->integer('temp_preparation');
-            $table->integer('difficulte');
+            $table->string('difficulte');
             $table->integer('calories');
             $table->boolean('is_recipe_of_day')->default(false);
             $table->boolean('is_deleted')->default(false);
