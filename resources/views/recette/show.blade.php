@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pasta Al Limone | FoodieShare Premium</title>
+    <title>{{ $recette->title_recette }} | FoodieShare</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -54,13 +54,9 @@
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-100">
         <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="index.html" class="text-sm font-black tracking-tighter uppercase">Foodie<span
+            <a href="/" class="text-sm font-black tracking-tighter uppercase">Foodie<span
                     class="text-orange-600">.</span>Share</a>
             <div class="flex items-center gap-6">
-                <button
-                    class="hidden sm:block text-[10px] font-bold uppercase tracking-[0.2em] hover:text-orange-600 transition">
-                    <i class="fa-regular fa-bookmark mr-2"></i>Sauvegarder
-                </button>
                 <div
                     class="h-9 w-9 rounded-full bg-black text-white flex items-center justify-center text-xs cursor-pointer btn-animate">
                     <i class="fa-solid fa-user"></i>
@@ -78,14 +74,13 @@
                             class="text-[10px] font-bold tracking-[0.3em] text-orange-600 uppercase italic underline decoration-2 underline-offset-4">Recette
                             Premium</span>
                         <div class="flex text-[8px] text-orange-500">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i>
+                            @for ($i = 0; $i < 5; $i++)
+                                <i class="fa-solid fa-star"></i>
+                            @endfor
                         </div>
                     </div>
                     <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.9]">
-                        {{ $recette->title_recette }}
-                    </h1>
+                        {{ $recette->title_recette }}</h1>
                 </div>
                 <div class="flex gap-10 border-l border-gray-200 pl-10">
                     <div>
@@ -97,21 +92,19 @@
                         <p class="text-xl font-bold italic tracking-tighter">{{ $recette->difficulte }}</p>
                         <p class="text-[9px] uppercase tracking-widest text-gray-400 font-bold">Difficulté</p>
                     </div>
-                    <div>
-                        <p class="text-xl font-bold italic tracking-tighter">{{ $recette->calories }}</p>
-                        <p class="text-[9px] uppercase tracking-widest text-gray-400 font-bold">Calories</p>
-                    </div>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4 h-[600px]">
-                <div class="md:col-span-8 h-full"><img src="{{ asset('storage/' . $recette->images[0]->url_image) }} "
-                        class="w-full h-full object-cover rounded-sm"></div>
+                <div class="md:col-span-8 h-full">
+                    <img src="{{ asset('storage/' . $recette->images[0]->url_image) }}"
+                        class="w-full h-full object-cover rounded-sm">
+                </div>
                 <div class="md:col-span-4 grid grid-rows-2 gap-4 h-full">
-                    <img src="{{ asset('storage/' . $recette->images[1]->url_image) }} "
-                        class="w-full h-full object-cover rounded-sm">
-                    <img src="{{ asset('storage/' . $recette->images[2]->url_image) }} "
-                        class="w-full h-full object-cover rounded-sm">
+                    @foreach ($recette->images->slice(1, 2) as $img)
+                        <img src="{{ asset('storage/' . $img->url_image) }}"
+                            class="w-full h-full object-cover rounded-sm">
+                    @endforeach
                 </div>
             </div>
         </header>
@@ -124,23 +117,13 @@
                             Ingrédients</h2>
                         <ul class="space-y-5">
                             @foreach ($recette->ingredients as $ingredient)
-                                <li class="flex justify-between items-center text-sm border-b border-gray-50 pb-3"><span
-                                        class="text-gray-500 font-medium"> {{ $ingredient->nom_ingredient }}</span><span
-                                        class="font-bold tracking-tighter text-lg">{{ $ingredient->quantite }}
+                                <li class="flex justify-between items-center text-sm border-b border-gray-50 pb-3">
+                                    <span class="text-gray-500 font-medium">{{ $ingredient->nom_ingredient }}</span>
+                                    <span class="font-bold tracking-tighter text-lg">{{ $ingredient->quantite }}
                                         {{ $ingredient->unite }}</span>
-                                    </span>
                                 </li>
                             @endforeach
-
-
-
                         </ul>
-                    </div>
-                    <div class="bg-zinc-900 text-white p-8 rounded-sm">
-                        <i class="fa-solid fa-quote-left text-orange-600 mb-4 text-2xl"></i>
-                        <p class="text-xs leading-relaxed italic text-gray-300">"La clé est l'émulsion : l'eau amidonnée
-                            des pâtes crée cette sauce crémeuse."</p>
-                        <p class="mt-4 text-[9px] font-bold uppercase tracking-[0.2em]">— Chef Amine</p>
                     </div>
                 </div>
             </aside>
@@ -148,90 +131,98 @@
             <div class="lg:col-span-8">
                 <h2 class="text-2xl font-black uppercase tracking-tighter mb-10 border-b-2 border-black pb-2">
                     Préparation</h2>
-                <div class="space-y-16">
-                    @foreach ($recette->etapes as $index => $etape)
-                        <div class="flex gap-8 group"><span
+                <div class="space-y-16 mb-32">
+                    @foreach ($recette->etapes as $etape)
+                        <div class="flex gap-8 group">
+                            <span
                                 class="step-number group-hover:text-orange-100 transition">{{ $etape->order_etape }}</span>
                             <div class="pt-2">
-                                <h3 class="font-bold uppercase text-[11px] tracking-widest mb-3 text-orange-600">Base
-                                    Aromatique</h3>
+                                <h3 class="font-bold uppercase text-[11px] tracking-widest mb-3 text-orange-600">Étape
+                                    {{ $etape->order_etape }}</h3>
                                 <p class="text-gray-600 leading-relaxed">{{ $etape->description_etape }}</p>
                             </div>
                         </div>
                     @endforeach
                 </div>
 
-                <section class="mt-32 pt-16 border-t border-gray-100">
+                <section id="reviews-section" class="pt-16 border-t border-gray-100">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-12">
                         <h2 class="text-3xl font-black uppercase tracking-tighter">Avis & Questions</h2>
-                        <div
-                            class="flex items-center gap-4 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-50">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase">Score communautaire</span>
-                            <span id="avg-rating" class="text-sm font-black italic underline text-orange-600">4.9 /
-                                5.0</span>
-                        </div>
                     </div>
-                    @if (auth()->check())
-                        <form action="{{ route('comment.store') }}" method="POST">
+
+                    @auth
+                        <form id="comment-form" action="{{ route('comment.store') }}" method="POST" class="mb-20">
                             @csrf
-                            <div class="mb-20">
-                                <div class="flex gap-6 mb-6">
-                                    <button id="type-avis" onclick="setType('avis')" type="button"
-                                        class="text-[10px] font-bold uppercase tracking-widest border-b-2 border-black pb-1 transition-all">Donner
-                                        un avis
-                                    </button>
-                                    <button id="type-question" onclick="setType('question')" type="button"
-                                        class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black transition pb-1">Poser
-                                        une question
-                                    </button>
-                                </div>
+                            <div id="method-container">
+                            </div> <input type="hidden" name="recette_id" value="{{ $recette->id }}">
 
-                                <div id="stars-row" class="flex items-center gap-2 mb-4 star-rating text-gray-200">
-                                    <span class="text-[9px] font-bold uppercase mr-2 text-gray-400">Votre note :</span>
-                                    <i class="fa-solid fa-star" data-v="1"></i>
-                                    <i class="fa-solid fa-star" data-v="2"></i>
-                                    <i class="fa-solid fa-star" data-v="3"></i>
-                                    <i class="fa-solid fa-star" data-v="4"></i>
-                                    <i class="fa-solid fa-star" data-v="5"></i>
-                                </div>
+                            <div class="flex gap-6 mb-6">
+                                <button type="button" onclick="setType('avis')" id="btn-avis"
+                                    class="text-[10px] font-bold uppercase tracking-widest border-b-2 border-black pb-1">Donner
+                                    un avis</button>
+                                <button type="button" onclick="setType('question')" id="btn-question"
+                                    class="text-[10px] font-bold uppercase tracking-widest text-gray-400 pb-1">Poser une
+                                    question</button>
+                            </div>
 
-                                <div class="relative">
-                                    <input type="hidden" name="recette_id" value="{{ $recette->id }}">
-                                    <textarea name="commentaire" id="main-input" placeholder="Votre message..."
-                                        class="w-full bg-transparent border-b border-gray-200 py-4 text-sm focus:outline-none focus:border-black transition resize-none min-h-[100px]"></textarea>
-                                    <button id="main-submit" onclick="handleAction()" type="submit"
-                                        class="mt-4 bg-black text-white text-[10px] font-bold uppercase tracking-[0.2em] px-8 py-4  hover:bg-orange-600 transition btn-animate">
+                            <div id="stars-row" class="flex items-center gap-2 mb-4 star-rating text-gray-200">
+                                <span class="text-[9px] font-bold uppercase mr-2 text-gray-400">Note :</span>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <i class="fa-solid fa-star" data-v="{{ $i }}"></i>
+                                @endfor
+                                <input type="hidden" name="rating" id="rating-input" value="0">
+                            </div>
+
+                            <div class="relative">
+                                <input type="hidden" name="comment_id" id="comment-id" value="0">
+                                <textarea name="commentaire" id="main-input" placeholder="Votre message..." required
+                                    class="w-full bg-transparent border-b border-gray-200 py-4 text-sm focus:outline-none focus:border-black transition resize-none min-h-[100px]"></textarea>
+
+                                <div class="flex items-center gap-4 mt-4">
+                                    <button type="submit" id="main-submit"
+                                        class="bg-black text-white text-[10px] font-bold uppercase tracking-[0.2em] px-8 py-4 hover:bg-orange-600 transition btn-animate">
                                         Publier maintenant
+                                    </button>
+                                    <button type="button" id="cancel-edit" onclick="cancelEdit()"
+                                        class="hidden text-[10px] font-bold uppercase tracking-widest text-red-500 hover:underline">
+                                        Annuler la modification
                                     </button>
                                 </div>
                             </div>
                         </form>
-                    @endif
+                    @else
+                        <p class="mb-10 text-sm text-gray-500 italic">Veuillez vous <a href="/login"
+                                class="text-orange-600 underline">connecter</a> pour laisser un avis.</p>
+                    @endauth
+
                     <div id="comments-container" class="space-y-14">
                         @foreach ($recette->commentaires as $commentaire)
-                            <div class="comment-item group">
+                            <div class="comment-item group" id="comment-{{ $commentaire->id }}">
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="flex items-center gap-3">
                                         <div
                                             class="h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center font-bold text-[10px]">
-                                            MOI</div>
+                                            {{ strtoupper(substr($commentaire->user->name, 0, 2)) }}
+                                        </div>
                                         <div>
-                                            <p class="text-xs font-black uppercase"> {{ $commentaire->user->name }}
-                                                <span
-                                                    class="badge ml-2 text-[8px] px-2 py-0.5 bg-black text-white rounded-full">★
-                                                    5.0</span>
-                                            </p>
+                                            <p class="text-xs font-black uppercase">{{ $commentaire->user->name }}</p>
                                         </div>
                                     </div>
-                                    @if ($commentaire->user_id == auth()->check())
-                                        @if ($commentaire->user_id == auth()->id)
-                                            <div class="flex gap-4 opacity-0 group-hover:opacity-100 transition">
-                                                <button onclick="startEdit(this)"
-                                                    class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black transition">Modifier</button>
-                                                <button onclick="this.closest('.comment-item').remove()"
+
+                                    @if (auth()->check() && $commentaire->user_id == auth()->id())
+                                        <div class="flex gap-4 opacity-0 group-hover:opacity-100 transition">
+                                            <button
+                                                onclick="startEdit({{ $commentaire->id }}, '{{ addslashes($commentaire->commentaire) }}')"
+                                                class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black transition">Modifier</button>
+
+                                            <form action="{{ route('comment.destroy', $commentaire->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Supprimer ce commentaire ?')">
+                                                @csrf @method('DELETE')
+                                                <button type="submit"
                                                     class="text-[9px] font-bold uppercase tracking-widest text-red-400 hover:text-red-600 transition">Supprimer</button>
-                                            </div>
-                                        @endif
+                                            </form>
+                                        </div>
                                     @endif
                                 </div>
                                 <p class="content-p text-sm text-gray-600 leading-relaxed pl-13">
@@ -244,99 +235,72 @@
         </div>
     </main>
 
-    <footer class="mt-32 py-20 border-t border-gray-100 text-center">
-        <div class="text-sm font-black tracking-tighter uppercase mb-6">Foodie<span
-                class="text-orange-600">.</span>Share</div>
-        <p class="text-[9px] text-gray-300 font-bold uppercase tracking-widest">© 2026 Crafted for the modern chef</p>
-    </footer>
-
     <script>
-        let mode = 'avis';
         let rating = 0;
-        let editTarget = null;
 
-        // Logique Étoiles (Interactive)
+        // 1. Gestion des Étoiles
         const starIcons = document.querySelectorAll('#stars-row i[data-v]');
         starIcons.forEach(icon => {
             icon.addEventListener('click', () => {
                 rating = icon.dataset.v;
-                starIcons.forEach((s, i) => {
-                    s.classList.toggle('active', i < rating);
-                });
+                document.getElementById('rating-input').value = rating;
+                starIcons.forEach((s, i) => s.classList.toggle('active', i < rating));
             });
         });
 
+        // 2. Switch Avis / Question
         function setType(t) {
-            mode = t;
-            const btnAvis = document.getElementById('type-avis');
-            const btnQuest = document.getElementById('type-question');
+            const btnAvis = document.getElementById('btn-avis');
+            const btnQuest = document.getElementById('btn-question');
             const starRow = document.getElementById('stars-row');
 
             if (t === 'avis') {
                 btnAvis.className = 'text-[10px] font-bold uppercase tracking-widest border-b-2 border-black pb-1';
                 btnQuest.className = 'text-[10px] font-bold uppercase tracking-widest text-gray-400 pb-1';
-                starRow.style.opacity = '1';
-                starRow.style.pointerEvents = 'auto';
+                starRow.style.display = 'flex';
             } else {
                 btnQuest.className = 'text-[10px] font-bold uppercase tracking-widest border-b-2 border-black pb-1';
                 btnAvis.className = 'text-[10px] font-bold uppercase tracking-widest text-gray-400 pb-1';
-                starRow.style.opacity = '0.2';
-                starRow.style.pointerEvents = 'none';
+                starRow.style.display = 'none';
+                document.getElementById('rating-input').value = 0;
             }
         }
 
-        function handleAction() {
+        // 3. Passer en mode MODIFICATION
+        function startEdit(id, content) {
+            const form = document.getElementById('comment-form');
             const input = document.getElementById('main-input');
-            const content = input.value.trim();
-            if (!content) return;
+            const submitBtn = document.getElementById('main-submit');
+            const cancelBtn = document.getElementById('cancel-edit');
+            const comment_id = document.getElementById('comment-id');
+            const methodContainer = document.getElementById('method-container');
 
-            // if (editTarget) {
-            //     editTarget.querySelector('.content-p').innerText = content;
-            //     if (mode === 'avis' && rating > 0) {
-            //         editTarget.querySelector('.badge').innerText = '★ ' + rating + '.0';
-            //     }
-            //     cancelEdit();
-            // } else {
-            //     const container = document.getElementById('comments-container');
-            //     const div = document.createElement('div');
-            //     div.className = "comment-item group";
+            form.action = "{{ route('comment.update', ':id') }}".replace(':id', id);
+            comment_id.value = id;
+            methodContainer.innerHTML = '<input type="hidden" name="_method" value="PUT">';
 
-            //     const badgeClass = mode === 'avis' ? 'bg-black text-white' : 'bg-orange-600 text-white';
-            //     const badgeLabel = mode === 'avis' ? `★ ${rating || 5}.0` : 'QUESTION';
+            input.value = content;
+            submitBtn.innerText = "Mettre à jour le message";
+            cancelBtn.classList.remove('hidden');
 
-            //     div.innerHTML = `
-        //         <div class="flex justify-between items-start mb-4">
-        //             <div class="flex items-center gap-3">
-        //                 <div class="h-10 w-10 rounded-full bg-zinc-200 flex items-center justify-center font-bold text-[10px]">VIS</div>
-        //                 <div>
-        //                     <p class="text-xs font-black uppercase">Visiteur <span class="badge ml-2 text-[8px] px-2 py-0.5 ${badgeClass} rounded-full">${badgeLabel}</span></p>
-        //                 </div>
-        //             </div>
-        //             <div class="flex gap-4 opacity-0 group-hover:opacity-100 transition">
-        //                 <button onclick="startEdit(this)" class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black">Modifier</button>
-        //                 <button onclick="this.closest('.comment-item').remove()" class="text-[9px] font-bold uppercase tracking-widest text-red-400 hover:text-red-600">Supprimer</button>
-        //             </div>
-        //         </div>
-        //         <p class="content-p text-sm text-gray-600 leading-relaxed pl-13">${content}</p>
-        //     `;
-            //     container.prepend(div);
-            // }
-            // input.value = '';
-            // rating = 0;
-            // starIcons.forEach(s => s.classList.remove('active'));
-        }
-
-        function startEdit(btn) {
-            editTarget = btn.closest('.comment-item');
-            document.getElementById('main-input').value = editTarget.querySelector('.content-p').innerText;
-            document.getElementById('main-submit').innerText = "Mettre à jour le message";
-            document.getElementById('main-input').focus();
+            form.scrollIntoView({
+                behavior: 'smooth'
+            });
+            input.focus();
         }
 
         function cancelEdit() {
-            editTarget = null;
-            document.getElementById('main-submit').innerText = "Publier maintenant";
-            document.getElementById('main-input').value = '';
+            const form = document.getElementById('comment-form');
+            const input = document.getElementById('main-input');
+            const submitBtn = document.getElementById('main-submit');
+            const cancelBtn = document.getElementById('cancel-edit');
+            const methodContainer = document.getElementById('method-container');
+
+            form.action = "{{ route('comment.store') }}";
+            methodContainer.innerHTML = '';
+            input.value = '';
+            submitBtn.innerText = "Publier maintenant";
+            cancelBtn.classList.add('hidden');
         }
     </script>
 </body>
