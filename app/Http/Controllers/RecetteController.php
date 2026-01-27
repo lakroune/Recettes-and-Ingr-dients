@@ -36,6 +36,7 @@ class RecetteController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'title_recette' => 'required|string|max:255',
             'categorie_id' => 'required|exists:categories,id',
@@ -98,7 +99,7 @@ class RecetteController extends Controller
                 $etape->save();
             }
         });
-        return redirect()->route('recette.add')->with('success', 'Recette ajoutée');
+        return redirect()->route('recette.create')->with('success', 'Recette ajoutée');
     }
 
     /**
@@ -107,7 +108,7 @@ class RecetteController extends Controller
     public function show(string $id)
     {
         $recette = Recette::find($id);
-        return view('recette.show', compact('recette'));    
+        return view('recette.show', compact('recette'));
     }
 
     /**
@@ -115,7 +116,8 @@ class RecetteController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $recette = Recette::find($id);
+        return view('recette.edit', compact('recette'));
     }
 
     /**
@@ -131,6 +133,8 @@ class RecetteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $recette = Recette::find($id);
+        $recette->delete();
+        return redirect()->route('home')->with('success', 'Recette supprimée');
     }
 }

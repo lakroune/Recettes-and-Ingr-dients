@@ -67,7 +67,7 @@
             </h1>
         </header>
 
-        <form action="{{ route('recette.add') }}" method="POST" enctype="multipart/form-data"
+        <form action="{{ route('recette.store') }}" method="POST" enctype="multipart/form-data"
             class="grid grid-cols-1 lg:grid-cols-12 gap-20">
             @csrf
             <div class="lg:col-span-7 space-y-16">
@@ -148,7 +148,7 @@
                     <div id="stepsList" class="space-y-10">
                         <div class="flex gap-6 items-start">
                             <span class="text-3xl font-black text-gray-200 tracking-tighter">01</span>
-                            <textarea name="etapes[]" placeholder="Décrivez cette étape..." class="input-flat flex-1 py-1 text-sm resize-none"
+                            <textarea name="etapes[0]" placeholder="Décrivez cette étape..." class="input-flat flex-1 py-1 text-sm resize-none"
                                 rows="2"></textarea>
                         </div>
                     </div>
@@ -346,7 +346,7 @@
             div.className = "flex gap-6 items-start";
             div.innerHTML = `
                 <span class="text-3xl font-black text-gray-200 tracking-tighter">${count < 10 ? '0'+count : count}</span>
-                <textarea name="etapes[]" placeholder="Décrivez cette étape..." class="input-flat flex-1 py-1 text-sm resize-none" rows="2"></textarea>
+                <textarea name="etapes[${container.children.length}]" placeholder="Décrivez cette étape..." class="input-flat flex-1 py-1 text-sm resize-none" rows="2"></textarea>
                 <button type="button" onclick="this.parentElement.remove()" class="text-gray-200 hover:text-red-500 pt-2"><i class="fa-solid fa-trash text-[10px]"></i></button>
             `;
             container.appendChild(div);

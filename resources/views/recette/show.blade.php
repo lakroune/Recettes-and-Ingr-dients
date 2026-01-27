@@ -171,59 +171,73 @@
                                 5.0</span>
                         </div>
                     </div>
-
-                    <div class="mb-20">
-                        <div class="flex gap-6 mb-6">
-                            <button id="type-avis" onclick="setType('avis')"
-                                class="text-[10px] font-bold uppercase tracking-widest border-b-2 border-black pb-1 transition-all">Donner
-                                un avis</button>
-                            <button id="type-question" onclick="setType('question')"
-                                class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black transition pb-1">Poser
-                                une question</button>
-                        </div>
-
-                        <div id="stars-row" class="flex items-center gap-2 mb-4 star-rating text-gray-200">
-                            <span class="text-[9px] font-bold uppercase mr-2 text-gray-400">Votre note :</span>
-                            <i class="fa-solid fa-star" data-v="1"></i>
-                            <i class="fa-solid fa-star" data-v="2"></i>
-                            <i class="fa-solid fa-star" data-v="3"></i>
-                            <i class="fa-solid fa-star" data-v="4"></i>
-                            <i class="fa-solid fa-star" data-v="5"></i>
-                        </div>
-
-                        <div class="relative">
-                            <textarea id="main-input" placeholder="Votre message..."
-                                class="w-full bg-transparent border-b border-gray-200 py-4 text-sm focus:outline-none focus:border-black transition resize-none min-h-[100px]"></textarea>
-                            <button id="main-submit" onclick="handleAction()"
-                                class="mt-4 bg-black text-white text-[10px] font-bold uppercase tracking-[0.2em] px-8 py-4  hover:bg-orange-600 transition btn-animate">
-                                Publier maintenant
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="comments-container" class="space-y-14">
-                        <div class="comment-item group">
-                            <div class="flex justify-between items-start mb-4">
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center font-bold text-[10px]">
-                                        MOI</div>
-                                    <div>
-                                        <p class="text-xs font-black uppercase">Sarah Bel <span
-                                                class="badge ml-2 text-[8px] px-2 py-0.5 bg-black text-white rounded-full">★
-                                                5.0</span></p>
-                                    </div>
+                    @if (auth()->check())
+                        <form action="{{ route('comment.store') }}" method="POST">
+                            @csrf
+                            <div class="mb-20">
+                                <div class="flex gap-6 mb-6">
+                                    <button id="type-avis" onclick="setType('avis')" type="button"
+                                        class="text-[10px] font-bold uppercase tracking-widest border-b-2 border-black pb-1 transition-all">Donner
+                                        un avis
+                                    </button>
+                                    <button id="type-question" onclick="setType('question')" type="button"
+                                        class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black transition pb-1">Poser
+                                        une question
+                                    </button>
                                 </div>
-                                <div class="flex gap-4 opacity-0 group-hover:opacity-100 transition">
-                                    <button onclick="startEdit(this)"
-                                        class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black transition">Modifier</button>
-                                    <button onclick="this.closest('.comment-item').remove()"
-                                        class="text-[9px] font-bold uppercase tracking-widest text-red-400 hover:text-red-600 transition">Supprimer</button>
+
+                                <div id="stars-row" class="flex items-center gap-2 mb-4 star-rating text-gray-200">
+                                    <span class="text-[9px] font-bold uppercase mr-2 text-gray-400">Votre note :</span>
+                                    <i class="fa-solid fa-star" data-v="1"></i>
+                                    <i class="fa-solid fa-star" data-v="2"></i>
+                                    <i class="fa-solid fa-star" data-v="3"></i>
+                                    <i class="fa-solid fa-star" data-v="4"></i>
+                                    <i class="fa-solid fa-star" data-v="5"></i>
+                                </div>
+
+                                <div class="relative">
+                                    <input type="hidden" name="recette_id" value="{{ $recette->id }}">
+                                    <textarea name="commentaire" id="main-input" placeholder="Votre message..."
+                                        class="w-full bg-transparent border-b border-gray-200 py-4 text-sm focus:outline-none focus:border-black transition resize-none min-h-[100px]"></textarea>
+                                    <button id="main-submit" onclick="handleAction()" type="submit"
+                                        class="mt-4 bg-black text-white text-[10px] font-bold uppercase tracking-[0.2em] px-8 py-4  hover:bg-orange-600 transition btn-animate">
+                                        Publier maintenant
+                                    </button>
                                 </div>
                             </div>
-                            <p class="content-p text-sm text-gray-600 leading-relaxed pl-13">Recette testée ce soir. La
-                                fraîcheur du citron avec le Pecorino est un équilibre parfait.</p>
-                        </div>
+                        </form>
+                    @endif
+                    <div id="comments-container" class="space-y-14">
+                        @foreach ($recette->commentaires as $commentaire)
+                            <div class="comment-item group">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center font-bold text-[10px]">
+                                            MOI</div>
+                                        <div>
+                                            <p class="text-xs font-black uppercase"> {{ $commentaire->user->name }}
+                                                <span
+                                                    class="badge ml-2 text-[8px] px-2 py-0.5 bg-black text-white rounded-full">★
+                                                    5.0</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    @if ($commentaire->user_id == auth()->check())
+                                        @if ($commentaire->user_id == auth()->id)
+                                            <div class="flex gap-4 opacity-0 group-hover:opacity-100 transition">
+                                                <button onclick="startEdit(this)"
+                                                    class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black transition">Modifier</button>
+                                                <button onclick="this.closest('.comment-item').remove()"
+                                                    class="text-[9px] font-bold uppercase tracking-widest text-red-400 hover:text-red-600 transition">Supprimer</button>
+                                            </div>
+                                        @endif
+                                    @endif
+                                </div>
+                                <p class="content-p text-sm text-gray-600 leading-relaxed pl-13">
+                                    {{ $commentaire->commentaire }}</p>
+                            </div>
+                        @endforeach
                     </div>
                 </section>
             </div>
@@ -252,7 +266,6 @@
             });
         });
 
-        // Toggle Avis / Question
         function setType(t) {
             mode = t;
             const btnAvis = document.getElementById('type-avis');
@@ -272,48 +285,45 @@
             }
         }
 
-        // Action Publier / Modifier
         function handleAction() {
             const input = document.getElementById('main-input');
             const content = input.value.trim();
             if (!content) return;
 
-            if (editTarget) {
-                // Modification
-                editTarget.querySelector('.content-p').innerText = content;
-                if (mode === 'avis' && rating > 0) {
-                    editTarget.querySelector('.badge').innerText = '★ ' + rating + '.0';
-                }
-                cancelEdit();
-            } else {
-                // Création
-                const container = document.getElementById('comments-container');
-                const div = document.createElement('div');
-                div.className = "comment-item group";
+            // if (editTarget) {
+            //     editTarget.querySelector('.content-p').innerText = content;
+            //     if (mode === 'avis' && rating > 0) {
+            //         editTarget.querySelector('.badge').innerText = '★ ' + rating + '.0';
+            //     }
+            //     cancelEdit();
+            // } else {
+            //     const container = document.getElementById('comments-container');
+            //     const div = document.createElement('div');
+            //     div.className = "comment-item group";
 
-                const badgeClass = mode === 'avis' ? 'bg-black text-white' : 'bg-orange-600 text-white';
-                const badgeLabel = mode === 'avis' ? `★ ${rating || 5}.0` : 'QUESTION';
+            //     const badgeClass = mode === 'avis' ? 'bg-black text-white' : 'bg-orange-600 text-white';
+            //     const badgeLabel = mode === 'avis' ? `★ ${rating || 5}.0` : 'QUESTION';
 
-                div.innerHTML = `
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="h-10 w-10 rounded-full bg-zinc-200 flex items-center justify-center font-bold text-[10px]">VIS</div>
-                            <div>
-                                <p class="text-xs font-black uppercase">Visiteur <span class="badge ml-2 text-[8px] px-2 py-0.5 ${badgeClass} rounded-full">${badgeLabel}</span></p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4 opacity-0 group-hover:opacity-100 transition">
-                            <button onclick="startEdit(this)" class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black">Modifier</button>
-                            <button onclick="this.closest('.comment-item').remove()" class="text-[9px] font-bold uppercase tracking-widest text-red-400 hover:text-red-600">Supprimer</button>
-                        </div>
-                    </div>
-                    <p class="content-p text-sm text-gray-600 leading-relaxed pl-13">${content}</p>
-                `;
-                container.prepend(div);
-            }
-            input.value = '';
-            rating = 0;
-            starIcons.forEach(s => s.classList.remove('active'));
+            //     div.innerHTML = `
+        //         <div class="flex justify-between items-start mb-4">
+        //             <div class="flex items-center gap-3">
+        //                 <div class="h-10 w-10 rounded-full bg-zinc-200 flex items-center justify-center font-bold text-[10px]">VIS</div>
+        //                 <div>
+        //                     <p class="text-xs font-black uppercase">Visiteur <span class="badge ml-2 text-[8px] px-2 py-0.5 ${badgeClass} rounded-full">${badgeLabel}</span></p>
+        //                 </div>
+        //             </div>
+        //             <div class="flex gap-4 opacity-0 group-hover:opacity-100 transition">
+        //                 <button onclick="startEdit(this)" class="text-[9px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black">Modifier</button>
+        //                 <button onclick="this.closest('.comment-item').remove()" class="text-[9px] font-bold uppercase tracking-widest text-red-400 hover:text-red-600">Supprimer</button>
+        //             </div>
+        //         </div>
+        //         <p class="content-p text-sm text-gray-600 leading-relaxed pl-13">${content}</p>
+        //     `;
+            //     container.prepend(div);
+            // }
+            // input.value = '';
+            // rating = 0;
+            // starIcons.forEach(s => s.classList.remove('active'));
         }
 
         function startEdit(btn) {
