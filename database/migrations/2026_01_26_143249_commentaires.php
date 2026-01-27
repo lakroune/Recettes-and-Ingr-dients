@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('recette_id');
             $table->text('commentaire');
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

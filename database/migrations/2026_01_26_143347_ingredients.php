@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nom_ingredient');
             $table->float('quantite');
             $table->string('unite');
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

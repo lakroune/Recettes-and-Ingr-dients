@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('recette_id');
             $table->integer('order_etape');
             $table->text('description_etape');
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

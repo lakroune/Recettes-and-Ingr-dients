@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('recette_id');
             $table->string('url_image');
+            $table->boolean('is_principal')->default(false);
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

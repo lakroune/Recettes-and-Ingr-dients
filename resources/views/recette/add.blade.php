@@ -148,8 +148,8 @@
                     <div id="stepsList" class="space-y-10">
                         <div class="flex gap-6 items-start">
                             <span class="text-3xl font-black text-gray-200 tracking-tighter">01</span>
-                            <textarea name="description_etape" placeholder="Décrivez cette étape..."
-                                class="input-flat flex-1 py-1 text-sm resize-none" rows="2"></textarea>
+                            <textarea name="etapes[]" placeholder="Décrivez cette étape..." class="input-flat flex-1 py-1 text-sm resize-none"
+                                rows="2"></textarea>
                         </div>
                     </div>
                     <button type="button" onclick="addStep()"
@@ -170,7 +170,7 @@
                             Principale (Portrait)</label>
                         <div
                             class="relative group aspect-[3/4] bg-gray-50 border-2 border-dashed border-gray-200 flex items-center justify-center overflow-hidden">
-                            <input name="imagePrincipale" type="file"
+                            <input name="image_principale" type="file"
                                 class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="previewMain(this)">
                             <div id="mainPlaceholder" class="text-center">
                                 <i class="fa-solid fa-image text-3xl text-gray-200 mb-2"></i>
@@ -235,6 +235,91 @@
 
         </form>
     </main>
+    <div id="toast-container" class="fixed top-5 right-5 z-[100] flex flex-col gap-3 w-full max-w-[320px]">
+
+        @if (session('success'))
+            <div class="toast-item flex items-center p-4 bg-black text-white rounded-xl shadow-2xl animate-in-right">
+                <div
+                    class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-green-500 rounded-full text-[10px]">
+                    <i class="fa-solid fa-check text-white"></i>
+                </div>
+                <div class="ml-3">
+                    <p class="text-[11px] font-bold uppercase tracking-widest">{{ session('success') }}</p>
+                    <p class="text-[9px] text-gray-400">Votre contenu est en ligne.</p>
+                </div>
+                <button onclick="this.parentElement.remove()" class="ml-auto text-gray-500 hover:text-white">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
+            </div>
+        @endif
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div
+                    class="toast-item flex items-center p-4 bg-white border border-red-100 shadow-xl rounded-xl animate-in-right">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-red-500 rounded-full text-[10px]">
+                        <i class="fa-solid fa-exclamation text-white"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-[11px] font-bold uppercase tracking-widest text-red-600">Erreur de saisie</p>
+                        <p class="text-[9px] text-gray-500">{{ $error }}</p>
+                    </div>
+                    <button onclick="this.parentElement.remove()" class="ml-auto text-gray-300 hover:text-gray-600">
+                        <i class="fa-solid fa-xmark text-xs"></i>
+                    </button>
+                </div>
+            @endforeach
+        @endif
+    </div>
+
+    <style>
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+        }
+
+        .animate-in-right {
+            animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .toast-exit {
+            animation: fadeOut 0.3s ease forwards;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toasts = document.querySelectorAll('.toast-item');
+
+            toasts.forEach((toast) => {
+                setTimeout(() => {
+                    toast.classList.add('toast-exit');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 300);
+                }, 5000);
+            });
+        });
+    </script>
 
     <script>
         function addIngredient() {
