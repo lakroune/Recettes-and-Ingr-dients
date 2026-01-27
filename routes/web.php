@@ -40,3 +40,4 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/recette/add', [RecetteController::class, 'create'])->name('recette.add');
 Route::post('/recette/add', [RecetteController::class, 'store'])->name('recette.add');
+Route::get('/recette/show/{id}', [RecetteController::class, 'show'])->name('recette.show');

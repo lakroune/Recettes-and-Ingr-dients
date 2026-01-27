@@ -346,7 +346,7 @@
             div.className = "flex gap-6 items-start";
             div.innerHTML = `
                 <span class="text-3xl font-black text-gray-200 tracking-tighter">${count < 10 ? '0'+count : count}</span>
-                <textarea placeholder="Décrivez cette étape..." class="input-flat flex-1 py-1 text-sm resize-none" rows="2"></textarea>
+                <textarea name="etapes[]" placeholder="Décrivez cette étape..." class="input-flat flex-1 py-1 text-sm resize-none" rows="2"></textarea>
                 <button type="button" onclick="this.parentElement.remove()" class="text-gray-200 hover:text-red-500 pt-2"><i class="fa-solid fa-trash text-[10px]"></i></button>
             `;
             container.appendChild(div);

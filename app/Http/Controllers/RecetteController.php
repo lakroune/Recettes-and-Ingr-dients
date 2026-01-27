@@ -107,7 +107,7 @@ class RecetteController extends Controller
     public function show(string $id)
     {
         $recette = Recette::find($id);
-        return view('recette.show', compact('recette'));
+        return view('recette.show', compact('recette'));    
     }
 
     /**
