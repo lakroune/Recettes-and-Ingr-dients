@@ -67,30 +67,32 @@
             </h1>
         </header>
 
-        <form action="{{ route('recette.store') }}" method="POST" class="grid grid-cols-1 lg:grid-cols-12 gap-20">
+        <form action="{{ route('recette.add') }}" method="POST" class="grid grid-cols-1 lg:grid-cols-12 gap-20">
 
             <div class="lg:col-span-7 space-y-16">
 
                 <section class="space-y-8">
-                    <input type="text" placeholder="Titre de la recette..."
+                    <input name="title_recette" type="text" placeholder="Titre de la recette..."
                         class="input-flat w-full py-4 text-4xl font-black tracking-tighter">
                     <div class="grid grid-cols-4 gap-10">
                         <div class="flex flex-col"><label
-                                class="text-[9px] font-bold uppercase text-gray-400 mb-2">Temps (min)</label><input
-                                type="number" class="input-flat py-2 font-bold italic"></div>
+                                class="text-[9px] font-bold uppercase text-gray-400 mb-2">Temps (min)
+                            </label>
+                            <input name="temp_preparation" type="number" class="input-flat py-2 font-bold italic">
+                        </div>
                         <div class="flex flex-col"><label
-                                class="text-[9px] font-bold uppercase text-gray-400 mb-2">Difficulté</label><select
-                                class="input-flat py-2 font-bold italic bg-transparent">
-                                <option>Facile</option>
-                                <option>Moyen</option>
-                                <option>Expert</option>
+                                class="text-[9px] font-bold uppercase text-gray-400 mb-2">Difficulté</label>
+                            <select name="difficulte" class="input-flat py-2 font-bold italic bg-transparent">
+                                <option value="Facile">Facile</option>
+                                <option value="Moyen">Moyen</option>
+                                <option value="Expert">Expert</option>
                             </select>
                         </div>
 
 
-                        <div class="flex flex-col"><label
-                                class="text-[9px] font-bold uppercase text-gray-400 mb-2">Catégorie</label>
-                            <select class="input-flat py-2 font-bold italic bg-transparent">
+                        <div class="flex flex-col">
+                            <label class="text-[9px] font-bold uppercase text-gray-400 mb-2">Catégorie</label>
+                            <select name="categorie_id" class="input-flat py-2 font-bold italic bg-transparent">
                                 <option value=""> categorie</option>
                                 @foreach ($categories as $categorie)
                                     <option value="{{ $categorie->id }}">{{ $categorie->nom_categorie }}</option>
@@ -102,7 +104,7 @@
                         <div class="flex flex-col"><label
                                 class="text-[9px] font-bold uppercase text-gray-400 mb-2">Calories
                             </label>
-                            <input type="number" class="input-flat py-2 font-bold italic">
+                            <input name="calories" type="number" class="input-flat py-2 font-bold italic">
                         </div>
                     </div>
                 </section>
@@ -112,10 +114,13 @@
                         Ingrédients</h2>
                     <div id="ingredientsList" class="space-y-6 mb-6">
                         <div class="flex items-end gap-4">
-                            <div class="flex-1"><input type="text" placeholder="Ingrédient"
-                                    class="input-flat w-full py-2 text-sm"></div>
-                            <div class="w-20"><input type="number" placeholder="Qté"
-                                    class="input-flat w-full py-2 text-sm font-bold"></div>
+                            <div class="flex-1">
+                                <input type="text" placeholder="Ingrédient" class="input-flat w-full py-2 text-sm">
+                            </div>
+                            <div class="w-20">
+                                <input type="number" placeholder="Qté"
+                                    class="input-flat w-full py-2 text-sm font-bold">
+                            </div>
                             <div class="w-24">
                                 <select
                                     class="input-flat w-full py-2 text-[10px] font-bold uppercase tracking-widest bg-transparent">

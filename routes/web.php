@@ -39,4 +39,4 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/recette/add', [RecetteController::class, 'create'])->name('recette.add');
-Route::post('/recette/store', [RecetteController::class, 'store'])->name('recette.store');
+Route::post('/recette/store', [RecetteController::class, 'store'])->name('recette.add');
