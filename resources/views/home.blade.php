@@ -71,36 +71,41 @@
 
     <x-header />
     <main class="max-w-6xl mx-auto px-6">
+        @isset($recette_jour)
+            <section class="py-12 animate-in">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-5 space-y-4">
+                        <span
+                            class="text-[10px] font-bold tracking-[0.2em] text-orange-600 uppercase italic underline decoration-2 underline-offset-4">Recette
+                            de jour .</span>
+                        <p class="text-gray-500 text-xs leading-relaxed max-w-xs"> Aujourd'hui, nous vous proposons une
+                            recette speciale. nous souhaitons vous offrir une experience culinaire uniques.</p>
+                        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter leading-none">
+                            {{ $recette_jour->title_recette }}
+                            <br>Premium Edition.
+                        </h1>
 
-        <section class="py-12 animate-in">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                <div class="md:col-span-5 space-y-4">
-                    <span
-                        class="text-[10px] font-bold tracking-[0.2em] text-orange-600 uppercase italic underline decoration-2 underline-offset-4">Recette
-                        de jour .</span>
-                    <p class="text-gray-500 text-xs leading-relaxed max-w-xs"> Aujourd'hui, nous vous proposons une recette speciale. nous souhaitons vous offrir une experience culinaire uniques.</p>
-                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter leading-none">Pasta Al
-                        Limone<br>Premium Edition.</h1>
-
-                    <div class="flex gap-4 pt-2">
+                        <div class="flex gap-4 pt-2">
 
 
-                        <button onclick="window.location.href='/recette/1'"
-                            class="bg-black text-white text-[10px] font-bold uppercase tracking-wider px-6 py-3  btn-animate hover:bg-orange-600 ">Découvrir</button>
-                    </div>
-                </div>
-                <div class="md:col-span-7">
-                    <div class="relative group">
-                        <div
-                            class="absolute -inset-2 bg-orange-100 rounded-[2rem] -z-10 group-hover:bg-orange-200 transition duration-500">
+                            <button onclick="window.location.href='/recette/1'"
+                                class="bg-black text-white text-[10px] font-bold uppercase tracking-wider px-6 py-3  btn-animate hover:bg-orange-600 ">Découvrir</button>
                         </div>
-                        <img src="https://images.unsplash.com/photo-1473093226795-af9932fe5856?auto=format&fit=crop&q=80&w=1200"
-                            class="w-full h-[450px] object-cover rounded-[1.5rem] shadow-2xl transition duration-500 group-hover:scale-[1.01]"
-                            alt="Hero">
+                    </div>
+                    <div class="md:col-span-7">
+                        <div class="relative group">
+                            <div
+                                class="absolute -inset-2 bg-orange-100 rounded-[2rem] -z-10 group-hover:bg-orange-200 transition duration-500">
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1473093226795-af9932fe5856?auto=format&fit=crop&q=80&w=1200"
+                                class="w-full h-[450px] object-cover rounded-[1.5rem] shadow-2xl transition duration-500 group-hover:scale-[1.01]"
+                                alt="Hero">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endisset
+
 
         <section class="mb-16 animate-in" style="animation-delay: 0.2s;">
             <form action="{{ route('search') }}" method="POST" id="form_id" class="mb-20">
@@ -164,7 +169,7 @@
                     <div class="space-y-2">
                         <div class="flex justify-between items-start">
                             <p class="text-[10px] font-bold uppercase tracking-widest text-orange-600">
-                                {{ $recette->title_recette }}
+                                {{ $recette->categorie->nom_categorie }}
                             </p>
                             <div class="flex items-center gap-2 text-[10px] text-gray-400 font-bold">
                                 <span><i class="fa-solid fa-star text-orange-500 text-[8px]"></i> 4.8</span>
@@ -185,7 +190,8 @@
                                 <div
                                     class="w-5 h-5 rounded-full bg-zinc-800 flex items-center justify-center text-[8px] text-white font-bold">
                                     A</div>
-                                <span class="text-[9px] font-bold uppercase tracking-tighter">Chef Amine</span>
+                                <span
+                                    class="text-[9px] font-bold uppercase tracking-tighter">{{ $recette->user->nom }}</span>
                             </div>
 
                             <div class="flex items-center gap-3 text-gray-400">

@@ -18,9 +18,10 @@ class RecetteController extends Controller
      */
     public function index()
     {
-        $recettes = Recette::where('is_deleted', false)->get();
+        $recettes = Recette::where('is_deleted', false)->with(['user', 'categorie'])->get();
+        $recette_jour = Recette::where('is_deleted', false)->where('is_recipe_of_day', true)->first();
         $categories = Categorie::all();
-        return view('home', compact('recettes', 'categories'));
+        return view('home', compact('recettes', 'categories', 'recette_jour'));
     }
     public function search(Request $request)
     {
