@@ -78,8 +78,7 @@
                     <span
                         class="text-[10px] font-bold tracking-[0.2em] text-orange-600 uppercase italic underline decoration-2 underline-offset-4">Recette
                         de jour .</span>
-                    <p class="text-gray-500 text-xs leading-relaxed max-w-xs">Une simplicité audacieuse. Citrons de
-                        Sicile, beurre frais et parmesan affiné.</p>
+                    <p class="text-gray-500 text-xs leading-relaxed max-w-xs"> Aujourd'hui, nous vous proposons une recette speciale. nous souhaitons vous offrir une experience culinaire uniques.</p>
                     <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter leading-none">Pasta Al
                         Limone<br>Premium Edition.</h1>
 
