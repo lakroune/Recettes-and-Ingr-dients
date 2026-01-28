@@ -23,8 +23,8 @@
                      class="text-[10px] font-bold uppercase tracking-widest hidden sm:block group-hover:text-orange-600 transition"></span>
                  <div
                      class="h-9 w-9 rounded-full bg-black text-white flex items-center justify-center text-xs cursor-pointer btn-animate hover:bg-orange-600">
-                   {{--  charm icon --}}
-                     <i class="fa-solid fa-utensils"></i>
+                   {{--  chart icon --}}
+                     <i class="fa-solid fa-chart-line"></i>
                  </div>
              </a>
              @if (Auth::check())
