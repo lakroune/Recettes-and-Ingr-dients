@@ -29,17 +29,17 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $data = $request->validate([
-            'nom' => 'required',
+            'nom' => 'required|min:3|string',
             'prenom' => 'required',
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|min:8',
         ]);
 
         $user = new User();
         $user->nom = $data['nom'];
         $user->prenom = $data['prenom'];
         $user->email = $data['email'];
-        $user->password = $data['password'];
+        $user->password = $data['password']; 
         $user->role = 'visiteur';
         $user->save();
         return redirect('/login');

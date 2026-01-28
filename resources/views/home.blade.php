@@ -76,11 +76,13 @@
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                 <div class="md:col-span-5 space-y-4">
                     <span
-                        class="text-[10px] font-bold tracking-[0.2em] text-orange-600 uppercase italic underline decoration-2 underline-offset-4">L'Incontournable</span>
-                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter leading-none">Pasta Al
-                        Limone<br>Premium Edition.</h1>
+                        class="text-[10px] font-bold tracking-[0.2em] text-orange-600 uppercase italic underline decoration-2 underline-offset-4">Recette
+                        de jour .</span>
                     <p class="text-gray-500 text-xs leading-relaxed max-w-xs">Une simplicité audacieuse. Citrons de
                         Sicile, beurre frais et parmesan affiné.</p>
+                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter leading-none">Pasta Al
+                        Limone<br>Premium Edition.</h1>
+
                     <div class="flex gap-4 pt-2">
 
 
@@ -138,13 +140,13 @@
 
         </section>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 pb-20 animate-in"
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-16 pb-20 animate-in"
             style="animation-delay: 0.3s;">
             @foreach ($recettes as $recette)
                 <div class="recipe-card group">
                     <div class="relative overflow-hidden rounded-sm bg-gray-200 aspect-[4/5] mb-4">
                         <img src="{{ asset('storage/' . $recette->images[0]->url_image) }}"
-                            class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition duration-700">
+                            class="w-full h-full object-cover rounded-sm grayscale-[30%] group-hover:grayscale-0 transition duration-700">
 
                         <button
                             class="absolute top-4 right-4 h-9 w-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-sm hover:text-red-500 transition btn-animate">
