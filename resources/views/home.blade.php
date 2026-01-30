@@ -77,10 +77,9 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-14 pb-20 animate-in">
 
             @foreach ($recettes_populaires as $recette)
-                )
                 <div class="recipe-card group">
                     <div class="relative overflow-hidden rounded-xl bg-gray-200 aspect-video mb-4">
-                        <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=800"
+                        <img src="{{ asset('storage/' . $recette->images[0]->url_image) }}"
                             class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition duration-700">
                         <div class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
                             <span class="text-[9px] font-bold uppercase tracking-tight text-orange-600"><i
@@ -90,7 +89,7 @@
                     <div class="space-y-2 px-1">
                         <div
                             class="flex justify-between items-center text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                            <span>Pâtes • 15 MIN</span>
+                            <span>Pâtes • {{ $recette->temps_preparations }}</span>
                             <span class="text-black"><i class="fa-solid fa-star text-orange-500 mr-1"></i>4.9</span>
                         </div>
                         <h3
@@ -101,7 +100,7 @@
                                 <div
                                     class="w-6 h-6 rounded-full bg-black flex items-center justify-center text-[10px] text-white font-bold">
                                     A</div>
-                                <span class="text-[10px] font-bold uppercase text-gray-500">Chef Amine</span>
+                                <span class="text-[10px] font-bold uppercase text-gray-500">{{ $recette->user->nom . " " . $recette->user->prenom }}</span>
                             </div>
                             <div class="flex gap-3 text-gray-300">
                                 <span class="text-[10px] font-bold text-gray-400"><i
