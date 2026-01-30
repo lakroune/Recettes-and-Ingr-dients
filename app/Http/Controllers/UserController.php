@@ -14,9 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-       $recettes = Recette::where('user_id', Auth::user()->id)
-                    ->where('is_deleted', false)  
-                    ->get();
+        $recettes = Recette::where('user_id', Auth::user()->id)
+            ->where('is_deleted', false)
+            ->get();
         $categories = Categorie::all();
         return view('gerer', compact('recettes', 'categories'));
     }

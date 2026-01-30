@@ -27,6 +27,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/recettes/gestion', [UserController::class, 'index'])->name('recettes.gestion');
 
 Route::get('/recette/add', [RecetteController::class, 'create'])->name('recette.create');
 Route::post('/recette/add', [RecetteController::class, 'store'])->name('recette.store');
