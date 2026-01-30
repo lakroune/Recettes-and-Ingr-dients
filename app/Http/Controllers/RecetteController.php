@@ -159,9 +159,23 @@ class RecetteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title_recette' => 'required|string|max:255',
+            'categorie_id' => 'required|exists:categories,id',
+            'temp_preparation' => 'required|integer|min:1',
+            'difficulte' => 'required|in:Facile,Moyen,Expert',
+            'calories' => 'required|integer|min:0',
+        ]);
+        $recette = Recette::find($id);
+        $recette->title_recette = $request->title_recette;
+        $recette->categorie_id = $request->categorie_id;
+        $recette->temp_preparation = $request->temp_preparation;
+        $recette->difficulte = $request->difficulte;
+        $recette->calories = $request->calories;
+        $recette->save();
+        return redirect()->route('gestion')->with('success', 'Recette modifiée');
     }
 
     /**
