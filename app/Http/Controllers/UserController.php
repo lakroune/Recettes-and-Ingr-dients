@@ -18,7 +18,7 @@ class UserController extends Controller
             ->where('is_deleted', false)
             ->get();
         $categories = Categorie::all();
-        return view('recette.gerer', compact('recettes', 'categories'));
+        return view('recettes.gerer', compact('recettes', 'categories'));
     }
 
     /**

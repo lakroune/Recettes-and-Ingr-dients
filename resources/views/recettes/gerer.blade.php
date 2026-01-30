@@ -4,217 +4,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodieShare | Minimal</title>
+    <title>Dashboard Chef | FoodieShare</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+        }
+
+        .row-item {
+            border-bottom: 1px solid #f9fafb;
             transition: all 0.3s ease;
         }
 
-        .recipe-card {
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .row-item:hover {
+            background-color: #fafafa;
+            border-bottom-color: #000;
         }
 
-        .recipe-card:hover {
-            transform: translateY(-8px);
+        .btn-action {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.3s;
         }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
+        .stat-label {
+            font-size: 9px;
+            font-weight: 800;
+            color: #9ca3af;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
-        .btn-animate {
-            transition: all 0.2s;
-        }
-
-        .btn-animate:active {
-            scale: 0.95;
-        }
-
-        /* Custom Select Style */
-        .custom-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.5rem center;
-            background-size: 1em;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-in {
-            animation: fadeIn 0.6s ease forwards;
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
+        .stat-count {
+            font-weight: 700;
+            font-size: 13px;
+            color: #000;
         }
     </style>
 </head>
 
-<body class="bg-[#fafafa] text-[#1a1a1a]">
+<body class="text-[#1a1a1a]">
 
     <x-header />
-    <main class="max-w-6xl mx-auto px-6">
 
-        <section class="py-12 animate-in">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                <div class="md:col-span-5 space-y-4">
-                    <span
-                        class="text-[10px] font-bold tracking-[0.2em] text-orange-600 uppercase italic underline decoration-2 underline-offset-4">Recette
-                        de jour .</span>
-                    <p class="text-gray-500 text-xs leading-relaxed max-w-xs">Une simplicité audacieuse. Citrons de
-                        Sicile, beurre frais et parmesan affiné.</p>
-                    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter leading-none">Pasta Al
-                        Limone<br>Premium Edition.</h1>
+    <main class="max-w-6xl mx-auto px-8 py-20">
 
-                    <div class="flex gap-4 pt-2">
-
-
-                        <button onclick="window.location.href='/recette/1'"
-                            class="bg-black text-white text-[10px] font-bold uppercase tracking-wider px-6 py-3  btn-animate hover:bg-orange-600 ">Découvrir</button>
-                    </div>
-                </div>
-                <div class="md:col-span-7">
-                    <div class="relative group">
-                        <div
-                            class="absolute -inset-2 bg-orange-100 rounded-[2rem] -z-10 group-hover:bg-orange-200 transition duration-500">
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1473093226795-af9932fe5856?auto=format&fit=crop&q=80&w=1200"
-                            class="w-full h-[450px] object-cover rounded-[1.5rem] shadow-2xl transition duration-500 group-hover:scale-[1.01]"
-                            alt="Hero">
-                    </div>
-                </div>
+        <header class="flex flex-col md:flex-row justify-between items-end gap-8 mb-24">
+            <div class="space-y-1">
+                <h1 class="text-6xl font-extrabold tracking-tighter leading-none">Votre <br>Répertoire.</h1>
+                <p class="text-gray-400 text-xs italic mt-4">Gérez vos publications et les retours de la communauté.</p>
             </div>
-        </section>
+            <a href="{{ route('recettes.create') }}"
+                class="bg-black text-white px-10 py-5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-orange-600 transition">
+                + Ajouter une recette
+            </a>
+        </header>
 
-        <section class="mb-16 animate-in" style="animation-delay: 0.2s;">
-            <form action="{{ route('search') }}" method="POST" id="form_id" class="mb-20">
-                @csrf
-                <div class="flex flex-col md:flex-row items-end justify-between gap-8 border-b border-gray-200 pb-4">
-                    <div class="w-full md:w-1/2">
-                        <label
-                            class="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400 block mb-2">Rechercher
-                            une saveur</label>
-                        <input name="search" type="text" placeholder="EX: RISOTTO AUX TRUFFES..."
-                            value="{{ $request->search ?? '' }}"
-                            class="w-full bg-transparent text-xl md:text-2xl font-light tracking-tight focus:outline-none placeholder:text-gray-200">
-                    </div>
-
-                    <div class="flex items-center gap-4 w-full md:w-auto">
-                        <div class="relative w-full md:w-48">
-                            <label
-                                class="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400 block mb-2 text-right">Catégorie</label>
-                            <select name="categorie_id" id="categorie_id"
-                                class="custom-select w-full bg-transparent text-[11px] font-bold uppercase tracking-widest text-right pr-6 focus:outline-none cursor-pointer">
-                                <option value="">Toutes les recettes</option>
-                                @foreach ($categories as $categorie)
-                                    <option value="{{ $categorie->id }}"
-                                        @isset(request()->categorie_id)
-                                        {{ $request->categorie_id == $categorie->id ? 'selected' : '' }}
-                                    @endisset>
-                                        {{ $categorie->nom_categorie }}</option>
-                                @endforeach
-                            </select>
-
-                        </div>
-                    </div>
+        <div class="space-y-2">
+            <div class="flex px-4 mb-6 text-[9px] font-bold uppercase tracking-[0.3em] text-gray-300">
+                <div class="flex-1">Détails de l'œuvre</div>
+                <div class="hidden md:flex w-64 justify-between px-4">
+                    <span>Avis</span>
+                    <span>Commentaires</span>
+                    <span>Likes</span>
                 </div>
-
-            </form>
-
-        </section>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-16 pb-20 animate-in"
-            style="animation-delay: 0.3s;">
+                <div class="w-40 text-right">Actions</div>
+            </div>
             @foreach ($recettes as $recette)
-                <div class="recipe-card group">
-                    <div class="relative overflow-hidden rounded-sm bg-gray-200 aspect-[4/5] mb-4">
-                        <img src="{{ asset('storage/' . $recette->images[0]->url_image) }}"
-                            class="w-full h-full object-cover rounded-sm grayscale-[30%] group-hover:grayscale-0 transition duration-700">
-
-                        <button
-                            class="absolute top-4 right-4 h-9 w-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-sm hover:text-red-500 transition btn-animate">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-
-                        <div
-                            class="absolute bottom-4 right-4 translate-y-12 group-hover:translate-y-0 transition duration-500">
-                            <button onclick="window.location.href='/recette/{{ $recette->id }}'"
-                                class="h-10 w-10 bg-black text-white rounded-full flex items-center justify-center shadow-xl hover:bg-orange-600 transition">
-                                <i class="fa-solid fa-arrow-right -rotate-45"></i>
-                            </button>
+                <div class="row-item flex items-center p-6 gap-6">
+                    <div class="flex flex-1 items-center gap-8">
+                        <div class="relative w-16 h-20 overflow-hidden">
+                            <a href="{{ route('recettes.show', $recette->id) }}">
+                                <img src="{{ asset('storage/' . $recette->images[0]->url_image) }}"
+                                    class="w-full h-full object-cover">
+                            </a>
+                        </div>
+                        <div>
+                            <h3 class="font-black text-xl tracking-tight">
+                                <a href="{{ route('recettes.show', $recette->id) }}">
+                                    {{ $recette->title_recette }}
+                                </a>
+                            </h3>
+                            <p class="text-[9px] text-gray-400 uppercase tracking-widest mt-1 italic">Posté le
+                                {{ $recette->created_at->diffForHumans() }}</p>
                         </div>
                     </div>
 
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-start">
-                            <p class="text-[10px] font-bold uppercase tracking-widest text-orange-600">
-                                {{ $recette->title_recette }}
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] text-gray-400 font-bold">
-                                <span><i class="fa-solid fa-star text-orange-500 text-[8px]"></i> 4.8</span>
-                                <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
-                                <span>{{ $recette->temp_preparation }} MIN</span>
-                            </div>
+                    <div class="hidden md:flex w-64 justify-between px-4">
+                        <div class="text-center">
+                            <p class="stat-count">{{ count($recette->favoris) }} </p>
+                            <p class="stat-label">★</p>
                         </div>
-
-                        <h3
-                            class="text-lg font-bold tracking-tight group-hover:underline decoration-1 underline-offset-4">
-                            <a href="recette/{{ $recette->id }} ">
-                                {{ $recette->title_recette }}
-                            </a>
-                        </h3>
-
-                        <div class="flex items-center justify-between pt-2 border-t border-gray-50">
-                            <div class="flex items-center gap-2">
-                                <div
-                                    class="w-5 h-5 rounded-full bg-zinc-800 flex items-center justify-center text-[8px] text-white font-bold">
-                                    A</div>
-                                <span class="text-[9px] font-bold uppercase tracking-tighter">Chef Amine</span>
-                            </div>
-
-                            <div class="flex items-center gap-3 text-gray-400">
-                                <span class="text-[9px] font-bold"><i class="fa-regular fa-heart mr-1"></i>
-                                    {{ count($recette->favoris) }}</span>
-                                <span class="text-[9px] font-bold"><i class="fa-regular fa-comment mr-1"></i>
-                                    {{ count($recette->commentaires) }} </span>
-                            </div>
+                        <div class="text-center">
+                            <p class="stat-count">{{ count($recette->commentaires) }}</p>
+                            <p class="stat-label">Coms</p>
                         </div>
+                        <div class="text-center">
+                            <p class="stat-count text-orange-600">156</p>
+                            <p class="stat-label">Likes</p>
+                        </div>
+                    </div>
+
+                    <div class="w-40 flex justify-end gap-6">
+
+                        <form action="{{ route('recettes.edit', $recette->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <button
+                                class="btn-action text-black border-b border-transparent hover:border-black">Modifier</button>
+                        </form>
+                        <button type="button" onclick="openDeleteModal('{{ route('recettes.destroy', $recette->id) }}')"
+                            class="btn-action
+                            text-gray-300 hover:text-red-500"><i
+                                class="fa-solid fa-trash-can"></i></button>
                     </div>
                 </div>
             @endforeach
 
 
+
+
         </div>
     </main>
+    <div id="delete-modal"
+        class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto">
+        <div class="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity"></div>
+
+        <div class="relative bg-white w-full max-w-md p-8 rounded-sm shadow-2xl border border-gray-100">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-50 mb-6">
+                    <i class="fa-solid fa-trash-can text-red-500 text-xl"></i>
+                </div>
+                <h3 class="text-xl font-black uppercase tracking-tighter mb-2">Supprimer la recette ?</h3>
+                <p class="text-sm text-gray-500 mb-8">Cette action est irréversible. Voulez-vous vraiment continuer ?
+                </p>
+
+                <div class="flex gap-4">
+                    <button onclick="closeDeleteModal()"
+                        class="flex-1 px-6 py-3 text-[10px] font-bold uppercase tracking-widest border border-gray-200 hover:bg-gray-50 transition">
+                        Annuler
+                    </button>
+                    <form id="confirm-delete-form" method="POST" class="flex-1">
+                        @csrf @method('DELETE')
+                        <button type="submit"
+                            class="w-full px-6 py-3 text-[10px] font-bold uppercase tracking-widest bg-black text-white hover:bg-red-600 transition">
+                            Supprimer
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="toast-container" class="fixed top-5 right-5 z-[100] flex flex-col gap-3 w-full max-w-[320px]">
+
+        @if (session('success'))
+            <div class="toast-item flex items-center p-4 bg-black text-white rounded-xl shadow-2xl animate-in-right">
+                <div
+                    class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-green-500 rounded-full text-[10px]">
+                    <i class="fa-solid fa-check text-white"></i>
+                </div>
+                <div class="ml-3">
+                    <p class="text-[11px] font-bold uppercase tracking-widest">{{ session('success') }}</p>
+                    <p class="text-[9px] text-gray-400">Votre contenu est en ligne.</p>
+                </div>
+                <button onclick="this.parentElement.remove()" class="ml-auto text-gray-500 hover:text-white">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
+            </div>
+        @endif
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div
+                    class="toast-item flex items-center p-4 bg-white border border-red-100 shadow-xl rounded-xl animate-in-right">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-red-500 rounded-full text-[10px]">
+                        <i class="fa-solid fa-exclamation text-white"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-[11px] font-bold uppercase tracking-widest text-red-600">Erreur de saisie</p>
+                        <p class="text-[9px] text-gray-500">{{ $error }}</p>
+                    </div>
+                    <button onclick="this.parentElement.remove()" class="ml-auto text-gray-300 hover:text-gray-600">
+                        <i class="fa-solid fa-xmark text-xs"></i>
+                    </button>
+                </div>
+            @endforeach
+        @endif
+    </div>
+    <style>
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+        }
+
+        .animate-in-right {
+            animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .toast-exit {
+            animation: fadeOut 0.3s ease forwards;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toasts = document.querySelectorAll('.toast-item');
+
+            toasts.forEach((toast) => {
+                setTimeout(() => {
+                    toast.classList.add('toast-exit');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 300);
+                }, 5000);
+            });
+        });
+    </script>
 
     <script>
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('py-1');
-            } else {
-                nav.classList.remove('py-1');
-            }
-        });
-        document.getElementById('categorie_id').addEventListener('change', function() {
-            this.form.submit();
+        function openDeleteModal(url) {
+            const modal = document.getElementById('delete-modal');
+            const form = document.getElementById('confirm-delete-form');
+            form.action = url;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Blocker le scroll
+        }
+
+        function closeDeleteModal() {
+            const modal = document.getElementById('delete-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Revenir au scroll normal
+        }
+
+        document.getElementById('delete-modal').addEventListener('click', function(e) {
+            if (e.target === this.firstElementChild) closeDeleteModal();
         });
     </script>
 </body>
