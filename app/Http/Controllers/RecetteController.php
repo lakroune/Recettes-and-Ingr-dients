@@ -175,7 +175,7 @@ class RecetteController extends Controller
         $recette->difficulte = $request->difficulte;
         $recette->calories = $request->calories;
         $recette->save();
-        return redirect()->route('gestion')->with('success', 'Recette modifiée');
+        return redirect()->route('recettes.gerer')->with('success', 'Recette modifiée');
     }
 
     /**

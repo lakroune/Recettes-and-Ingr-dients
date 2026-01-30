@@ -48,7 +48,7 @@
                  </a>
 
                  {{-- profile --}}
-                 <a href="recettes/gerer" class="flex items-center gap-2 group">
+                 <a href="/recettes/gerer" class="flex items-center gap-2 group">
                      <span
                          class="text-[10px] font-bold uppercase tracking-widest hidden sm:block group-hover:text-orange-600 transition"></span>
                      <div

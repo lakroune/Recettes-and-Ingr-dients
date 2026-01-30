@@ -31,6 +31,7 @@ Route::post('/recettes/create', [RecetteController::class, 'store'])->name('rece
 Route::get('/recettes/{id}', [RecetteController::class, 'show'])->name('recettes.show');
 Route::delete('/recettes/{id}', [RecetteController::class, 'destroy'])->name('recettes.destroy');
 Route::put('/recettes/edit/{id}', [RecetteController::class, 'edit'])->name('recettes.edit');
+Route::put('/recettes/update/{id}', [RecetteController::class, 'update'])->name('recettes.update');
 Route::post('/recettes/{id}/comments', [CommentaireController::class, 'store']);
 Route::put('/recettes/{id_recette}/comments/update/{id}', [CommentaireController::class, 'update']);
 Route::delete('/recettes/{id_recette}/comments/{id}', [CommentaireController::class, 'destroy']);
